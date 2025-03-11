@@ -14,7 +14,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dashboard from "@/components/Dashboard";
 import PowerbankTable from "@/components/PowebankTable";
 
-
 export default function Page() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -35,7 +34,7 @@ export default function Page() {
               <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <TabsList>
+                <TabsList className="transition-all group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
                   <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                   <TabsTrigger value="list">Powerbank List</TabsTrigger>
                 </TabsList>

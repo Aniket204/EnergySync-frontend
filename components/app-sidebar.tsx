@@ -11,7 +11,8 @@ import {
   Map,
   PieChart,
   Settings2,
-  SquareTerminal,
+  LayoutDashboard,
+  CircleUser
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -26,12 +27,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "satyam",
+    email: "satyam@powr2.com",
+    icon: CircleUser,
   },
   teams: [
     {
@@ -52,9 +52,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Dashboard",
       url: "#",
-      icon: SquareTerminal,
+      icon: LayoutDashboard,
       isActive: true,
       items: [
         {
