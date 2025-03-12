@@ -10,7 +10,7 @@ type TileProps = {
 
 const Tile = ({ title, amount, caption, Icon }: TileProps) => {
   return (
-    <Card className="shadow-base rounded-lg border bg-card text-card-foreground">
+    <Card className="hover:bg-muted shadow-base rounded-lg border bg-card text-card-foreground">
       <CardContent>
         <div className="flex flex-row items-center justify-between pb-2">
           <h3 className="font-bold tracking-tight text-sm">{title}</h3>
