@@ -72,11 +72,10 @@ const PowerbankTable = () => {
       <Table className="w-full">
         <TableHeader>
           <TableRow>
-            <TableHead>Powerbank Name</TableHead>
+            <TableHead>Unit Name</TableHead>
             <TableHead>Company Name</TableHead>
             <TableHead>Address</TableHead>
             <TableHead className="text-center">Status</TableHead>
-            <TableHead className="text-center">Verified</TableHead>
             <TableHead className="text-center">Connected</TableHead>
             <TableHead className="text-center">SoC</TableHead>
           </TableRow>
@@ -94,16 +93,6 @@ const PowerbankTable = () => {
                     <BatteryCharging className="text-green-500 w-5 h-5" />
                   ) : (
                     <BatteryFull className="text-blue-500 w-5 h-5" />
-                  )}
-                </div>
-              </TableCell>
-
-              <TableCell className="text-center">
-                <div className="flex justify-center items-center">
-                  {item.verified ? (
-                    <CheckCircle className="text-green-500 w-5 h-5" />
-                  ) : (
-                    <XCircle className="text-red-500 w-5 h-5" />
                   )}
                 </div>
               </TableCell>

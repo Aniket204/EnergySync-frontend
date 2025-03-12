@@ -11,8 +11,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Dashboard from "@/components/Dashboard";
-import PowerbankTable from "@/components/PowebankTable";
+import Dashboard from "@/components/Dashboard/Dashboard";
+import PowerbankTable from "@/components/Dashboard/PowebankTable";
 
 export default function Page() {
   const { theme, setTheme } = useTheme();
@@ -36,7 +36,7 @@ export default function Page() {
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <TabsList className="transition-all group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
                   <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-                  <TabsTrigger value="list">Powerbank List</TabsTrigger>
+                  <TabsTrigger value="list">Unit List</TabsTrigger>
                 </TabsList>
               </div>
               <Button
@@ -49,7 +49,6 @@ export default function Page() {
             </div>
           </header>
           <TabsContent value="dashboard">
-
             <Dashboard />
           </TabsContent>
           <TabsContent value="list">
