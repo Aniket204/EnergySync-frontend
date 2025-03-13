@@ -18,8 +18,11 @@ import {
 import { CheckCircle, XCircle, BatteryFull, BatteryCharging } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import UnitDetails from "../Details/UnitDetails";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 10;
 
 const generateRandomSoC = () => Math.floor(Math.random() * 91) + 10;
 const generateRandomConnected = () => (Math.random() > 0.5 ? "Yes" : "No");
@@ -38,6 +41,7 @@ const data = Array.from({ length: 50 }, (_, i) => ({
 const PowerbankTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [selectedUnit, setSelectedUnit] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,10 +52,18 @@ const PowerbankTable = () => {
 
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
+  };
+
+  const handleUnitClick = (unit) => {
+    setSelectedUnit(unit);
+  };
+
+  const handleBack = () => {
+    setSelectedUnit(null);
   };
 
   const paginatedData = data.slice(
@@ -65,6 +77,10 @@ const PowerbankTable = () => {
         <Loader className="h-5 text-gray-600 animate-spin" />
       </div>
     );
+  }
+
+  if (selectedUnit) {
+    return <UnitDetails selectedUnit={selectedUnit} handleBack={handleBack} />;
   }
 
   return (
@@ -83,10 +99,14 @@ const PowerbankTable = () => {
         <TableBody>
           {paginatedData.map((item) => (
             <TableRow key={item.id}>
-              <TableCell className="font-medium">{item.powerbankName}</TableCell>
+              <TableCell
+                className="font-medium cursor-pointer hover:underline"
+                onClick={() => handleUnitClick(item)}
+              >
+                {item.powerbankName}
+              </TableCell>
               <TableCell>{item.companyName}</TableCell>
               <TableCell>{item.address}</TableCell>
-
               <TableCell>
                 <div className="flex justify-center items-center">
                   {item.currentStatus === "charging" ? (
@@ -96,13 +116,11 @@ const PowerbankTable = () => {
                   )}
                 </div>
               </TableCell>
-
               <TableCell className="text-center">
                 <Badge variant={item.connected === "Yes" ? "default" : "secondary"}>
                   {item.connected}
                 </Badge>
               </TableCell>
-
               <TableCell className="text-center">{item.soc}%</TableCell>
             </TableRow>
           ))}

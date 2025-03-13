@@ -36,7 +36,20 @@ const Dashboard = () => {
                     bgColor="bg-orange-200 dark:bg-orange-950"
                 />
             </div>
-            <Chart />
+            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+                <div className="md:col-span-2 lg:col-span-3">
+                    <Chart />
+                </div>
+                <div className="md:col-span-2 lg:col-span-1">
+                    <Tile
+                        title="Total Runtime"
+                        amount="420 Hr"
+                        caption="-8% from last month"
+                        Icon={CirclePlay}
+                        bgColor="bg-orange-200 dark:bg-orange-950"
+                    />
+                </div>
+            </div>
         </div>
     )
 }

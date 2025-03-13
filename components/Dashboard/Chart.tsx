@@ -52,7 +52,7 @@ export function Chart() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="w-full md:h-[200px]">
+        <ChartContainer config={chartConfig} className="w-full md:h-[250px]">
           <LineChart
             data={data}
             margin={{
