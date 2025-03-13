@@ -47,9 +47,9 @@ export function Chart() {
     <Card>
       <CardHeader>
         <CardTitle>Power Consumption</CardTitle>
-        {/* <CardDescription>
-          Your exercise minutes are ahead of where you normally are.
-        </CardDescription> */}
+        <CardDescription>
+          Your historic energy consumption for 2023-2024
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="w-full md:h-[200px]">

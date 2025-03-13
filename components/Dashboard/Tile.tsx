@@ -6,19 +6,35 @@ type TileProps = {
   amount: string;
   caption: string;
   Icon: LucideIcon;
+  bgColor: string;
 };
 
-const Tile = ({ title, amount, caption, Icon }: TileProps) => {
+const Tile = ({ title, amount, caption, Icon, bgColor }: TileProps) => {
+  const percentageMatch = caption.match(/([+-]?\d+\.?\d*)%/);
+  const percentage = percentageMatch ? percentageMatch[0] : null;
+  const captionText = percentage ? caption.replace(percentage, "") : caption;
+
   return (
-    <Card className="hover:bg-muted shadow-base rounded-lg border bg-card text-card-foreground">
+    <Card className="py-5 hover:bg-muted shadow-sm rounded-sm border bg-card text-card-foreground relative">
       <CardContent>
-        <div className="flex flex-row items-center justify-between pb-2">
-          <h3 className="font-bold tracking-tight text-sm">{title}</h3>
-          <Icon className="h-4 w-4 text-muted-foreground" />
+        <div className="flex flex-row items-center justify-between pb-2 relative">
+          <h3 className="font-semibold tracking-tight text-sm">{title}</h3>
+          <div className={`absolute top-0 right-0 rounded-full p-2 ${bgColor}`}>
+            <Icon className="h-4 w-4 text-foreground"/>
+          </div>
         </div>
         <div className="pt-0">
           <div className="text-2xl font-bold">{amount}</div>
-          <p className="text-xs text-muted-foreground">{caption}</p>
+          <p className="text-xs text-muted-foreground">
+            {percentage ? (
+              <>
+                <span className={percentage.startsWith("-") ? "text-red-600" : "text-green-600"}>{percentage}</span>
+                {captionText}
+              </>
+            ) : (
+              caption
+            )}
+          </p>
         </div>
       </CardContent>
     </Card>

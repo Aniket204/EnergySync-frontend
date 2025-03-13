@@ -33,7 +33,7 @@ const data = {
     email: "satyam@powr2.com",
     icon: CircleUser,
   },
-  teams: [
+  teams: [  
     {
       name: "Acme Inc",
       logo: GalleryVerticalEnd,
@@ -139,20 +139,21 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Dashboard",
       url: "#",
-      icon: Frame,
+      icon: LayoutDashboard,
+      isActive: true,
     },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
+    // {
+    //   name: "Sales & Marketing",
+    //   url: "#",
+    //   icon: PieChart,
+    // },
+    // {
+    //   name: "Travel",
+    //   url: "#",
+    //   icon: Map,
+    // },
   ],
 }
 
@@ -163,7 +164,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {/* <NavMain items={data.navMain} /> */}
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
