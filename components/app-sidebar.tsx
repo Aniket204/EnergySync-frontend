@@ -15,19 +15,9 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
+      name: "POWR2",
       logo: Command,
-      plan: "Free",
+      plan: "EnergySync",
     },
   ],
   menuItems: [

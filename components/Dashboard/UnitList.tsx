@@ -5,6 +5,7 @@ import { BatteryFull, BatteryCharging } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "lucide-react";
 import UnitDetails from "../Details/UnitDetails";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -92,12 +93,22 @@ const UnitList = () => {
         <TableBody>
           {paginatedData.map((item) => (
             <TableRow key={item.id}>
-              <TableCell
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                  <TableCell
                 className="font-medium cursor-pointer hover:underline"
                 onClick={() => handleUnitClick(item)}
               >
                 {item.powerbankName}
               </TableCell>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>View {item.powerbankName} details</p>
+                  </TooltipContent>
+                </Tooltip>
+                    </TooltipProvider>
+
               <TableCell>{item.companyName}</TableCell>
               <TableCell>{item.address}</TableCell>
               <TableCell>
