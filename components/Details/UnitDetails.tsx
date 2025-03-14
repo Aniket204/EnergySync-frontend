@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { ArrowLeft, Pencil, Trash } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -32,32 +31,30 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                 </div>
 
 
-                <div className="flex-1 flex items-center justify-center text-lg font-medium mt-10">
+
                 Details for {selectedUnit.powerbankName}
-                    <Tabs defaultValue="dashboard">
+                <Tabs defaultValue="dashboard">
 
-                        <TabsList className="transition-all group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
-                            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-                            <TabsTrigger value="battery">Battery</TabsTrigger>
-                            <TabsTrigger disabled value="chart">Chart</TabsTrigger>
-                            <TabsTrigger disabled value="remote">Remote</TabsTrigger>
-                        </TabsList>
+                    <TabsList className="transition-all group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
+                        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+                        <TabsTrigger value="battery">Battery</TabsTrigger>
+                        <TabsTrigger disabled value="chart">Chart</TabsTrigger>
+                        <TabsTrigger disabled value="remote">Remote</TabsTrigger>
+                    </TabsList>
 
-                        <TabsContent value="dashboard">
-                            Dashboard
-                        </TabsContent>
-                        <TabsContent value="battery">
-                            Battery
-                        </TabsContent>
-                        <TabsContent value="chart">
-                            Chart
-                        </TabsContent>
-                        <TabsContent value="remote">
-                            Remote
-                        </TabsContent>
-                    </Tabs>
-                    
-                </div>
+                    <TabsContent value="dashboard">
+                        Dashboard
+                    </TabsContent>
+                    <TabsContent value="battery">
+                        Battery
+                    </TabsContent>
+                    <TabsContent value="chart">
+                        Chart
+                    </TabsContent>
+                    <TabsContent value="remote">
+                        Remote
+                    </TabsContent>
+                </Tabs>
             </div>
         </div>
     );

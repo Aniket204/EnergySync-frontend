@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { CheckCircle, XCircle, BatteryFull, BatteryCharging } from "lucide-react";
+import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { BatteryFull, BatteryCharging } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import UnitDetails from "../Details/UnitDetails";
 
 const ITEMS_PER_PAGE = 10;
 
-const generateRandomSoC = () => Math.floor(Math.random() * 91) + 10;
-const generateRandomConnected = () => (Math.random() > 0.5 ? "Yes" : "No");
+interface Unit {
+  id: string;
+  powerbankName: string;
+  companyName: string;
+  address: string;
+  currentStatus: "charging" | "full";
+  verified: boolean;
+  connected: "Yes" | "No";
+  soc: number;
+}
 
-const data = Array.from({ length: 50 }, (_, i) => ({
+const data: Unit[] = Array.from({ length: 50 }, (_, i) => ({
   id: `PB-${String(i + 1).padStart(3, "0")}`,
   powerbankName: `Powerbank ${i + 1}`,
   companyName: `Company ${i + 1}`,
   address: `Street ${i + 1}, City, Country`,
-  currentStatus: Math.random() > 0.5 ? "charging" : "full",
+  currentStatus: Math.random() > 0.5 ? ("charging" as const) : ("full" as const),
   verified: Math.random() > 0.5,
-  connected: generateRandomConnected(),
-  soc: generateRandomSoC(),
+  connected: Math.random() > 0.5 ? "Yes" : "No",
+  soc: Math.floor(Math.random() * 91) + 10,
 }));
 
-const PowerbankTable = () => {
+
+const UnitList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [selectedUnit, setSelectedUnit] = useState(null);
+  const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,13 +45,13 @@ const PowerbankTable = () => {
 
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
-  const handleUnitClick = (unit) => {
+  const handleUnitClick = (unit: Unit) => {
     setSelectedUnit(unit);
   };
 
@@ -132,8 +125,9 @@ const PowerbankTable = () => {
           <PaginationItem>
             <PaginationPrevious
               href="#"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={currentPage === 1 ? undefined : () => handlePageChange(currentPage - 1)}
+              aria-disabled={currentPage === 1}
+              className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
             />
           </PaginationItem>
 
@@ -152,8 +146,9 @@ const PowerbankTable = () => {
           <PaginationItem>
             <PaginationNext
               href="#"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={currentPage === totalPages ? undefined : () => handlePageChange(currentPage + 1)}
+              aria-disabled={currentPage === totalPages}
+              className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
             />
           </PaginationItem>
         </PaginationContent>
@@ -162,4 +157,4 @@ const PowerbankTable = () => {
   );
 };
 
-export default PowerbankTable;
+export default UnitList;

@@ -1,18 +1,15 @@
 "use client";
+
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dashboard from "@/components/Dashboard/Dashboard";
-import PowerbankTable from "@/components/Dashboard/PowebankTable";
+import UnitList from "@/components/Dashboard/UnitList";
 
 export default function Page() {
   const { theme, setTheme } = useTheme();
@@ -52,7 +49,7 @@ export default function Page() {
             <Dashboard />
           </TabsContent>
           <TabsContent value="list">
-            <PowerbankTable />
+            <UnitList />
           </TabsContent>
         </Tabs>
       </SidebarInset>
