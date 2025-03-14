@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { AudioWaveform, Command, GalleryVerticalEnd, LayoutDashboard, CircleUser } from "lucide-react";
+import { AudioWaveform, Command, GalleryVerticalEnd, LayoutDashboard, CircleUser, List } from "lucide-react";
 import { NavPlatform } from "@/components/nav-platform"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
@@ -40,7 +40,7 @@ const data = {
     {
       name: "Unit List",
       url: "#",
-      icon: LayoutDashboard,
+      icon: List,
       isActive: false,
     }
   ],

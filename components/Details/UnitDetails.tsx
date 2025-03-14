@@ -11,7 +11,7 @@ type UnitDetailsProps = {
 const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
     return (
         <div className="flex justify-center items-center h-150 w-full px-2">
-            <div className="w-full h-full border relative">
+            <div className="w-full h-full border">
                 <Button
                     variant="secondary"
                     className="absolute cursor-pointer"

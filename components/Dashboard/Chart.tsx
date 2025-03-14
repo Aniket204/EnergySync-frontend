@@ -32,7 +32,7 @@ const chartConfig = {
 
 export function Chart() {
   return (
-    <Card>
+    <Card className="hover:bg-muted shadow-sm rounded-sm">
       <CardHeader>
         <CardTitle>Power Consumption</CardTitle>
         <CardDescription>
