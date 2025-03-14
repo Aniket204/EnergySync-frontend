@@ -31,7 +31,7 @@ export default function Page() {
               <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <TabsList className="transition-all group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
+                <TabsList className="transition-all w-50 group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-2">
                   <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                   <TabsTrigger value="list">Unit List</TabsTrigger>
                 </TabsList>
