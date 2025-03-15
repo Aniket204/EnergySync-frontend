@@ -57,7 +57,7 @@ const BatteryDashboard = ({ data }) => {
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Solar"
-                        caption="0wh"
+                        caption="0 wh"
                         Icon={Sun}
                         active={false}
                         level={2}
