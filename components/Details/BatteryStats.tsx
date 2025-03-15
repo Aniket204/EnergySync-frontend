@@ -36,38 +36,43 @@ const BatteryStats = () => {
             <div className="grid grid-cols-3 gap-4 h-80">
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
-                        title="34%"
-                        caption="State of charge"
+                        title="Generator"
+                        caption="476.58wh"
                         Icon={Factory}
-                        bgColor="bg-orange-200 dark:bg-orange-950"
+                        active={true}
+                        level={0}
                     />
                     <BigCard
-                        title="34%"
-                        caption="State of charge"
+                        title="Grid"
+                        caption="0wh"
                         Icon={UtilityPole}
-                        bgColor="bg-orange-200 dark:bg-orange-950"
+                        active={false}
+                        level={0}
                     />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
-                        title="34%"
-                        caption="State of charge"
+                        title="Battery"
+                        caption="0% SOC"
                         Icon={Battery}
-                        bgColor="bg-orange-200 dark:bg-orange-950"
+                        active={true}
+                        level={1}
                     />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
-                        title="34%"
-                        caption="State of charge"
+                        title="Solar"
+                        caption="0wh"
                         Icon={Sun}
-                        bgColor="bg-orange-200 dark:bg-orange-950"
+                        active={false}
+                        level={2}
                     />
                     <BigCard
-                        title="34%"
-                        caption="State of charge"
+                        title="Load"
+                        caption="476.58wh"
                         Icon={Lightbulb}
-                        bgColor="bg-orange-200 dark:bg-orange-950"
+                        active={true}
+                        level={2}
                     />
                 </div>
             </div>

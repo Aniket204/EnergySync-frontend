@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
-import { ArrowLeft, Pencil, Trash } from "lucide-react";
+import { ArrowLeft, Pencil, Trash, RotateCcw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BatteryDashboard from './BatteryDashboard';
 import BatteryStats from './BatteryStats';
@@ -29,7 +29,20 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                     <ArrowLeft />
                 </Button>
 
-                <div className="absolute right-8 flex space-x-3">
+                <div className="absolute right-8 flex space-x-2">
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="secondary" className='cursor-pointer' size="icon" >
+                                    <RotateCcw />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                                <p>Refresh Status</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -81,7 +94,7 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                         <TabsTrigger disabled value="notifications">Notifications</TabsTrigger>
                     </TabsList>
 
-                    <Card className="shadow-sm mx-4 p-4 rounded-sm">
+                    <Card className="shadow-sm mx-4 p-4 hover:bg-muted rounded-sm">
                         <CardContent className="flex p-0 justify-between w-full">
                             <div><span className="font-light">Name: </span><span className="font-semibold">{selectedUnit.powerbankName}</span>
                                 <Badge className="ml-2" variant="default">

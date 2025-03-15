@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from '../ui/card';
 import InfoCard from './InfoCard';
+import BigCard from './BigCard';
 import { PlugZap, Thermometer, Battery, UtilityPole, Sun, Lightbulb, Factory } from "lucide-react";
 
 const BatteryDashboard = () => {
@@ -29,17 +29,45 @@ const BatteryDashboard = () => {
 
             <div className="grid grid-cols-3 gap-4 h-80">
                 <div className="flex flex-col gap-4 h-full">
-                    <Card className="shadow-sm rounded-sm p-4 flex-1 flex items-center justify-center">
-                        <Factory className="h-20 w-20 text-muted-foreground" />
-                    </Card>
-                    <Card className="shadow-sm rounded-sm p-4 flex-1 flex items-center justify-center"><UtilityPole className="h-20 w-20 text-muted-foreground" /></Card>
+                    <BigCard
+                        title="Generator"
+                        caption="476.58wh"
+                        Icon={Factory}
+                        active={true}
+                        level={0}
+                    />
+                    <BigCard
+                        title="Grid"
+                        caption="0wh"
+                        Icon={UtilityPole}
+                        active={false}
+                        level={0}
+                    />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
-                    <Card className="shadow-sm rounded-sm p-4 flex-1 flex items-center justify-center"><Battery className="h-20 w-20 text-muted-foreground" /></Card>
+                    <BigCard
+                        title="Battery"
+                        caption="0% SOC"
+                        Icon={Battery}
+                        active={true}
+                        level={1}
+                    />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
-                    <Card className="shadow-sm rounded-sm p-4 flex-1 flex items-center justify-center"><Sun className="h-20 w-20 text-muted-foreground" /></Card>
-                    <Card className="shadow-sm rounded-sm p-4 flex-1 flex items-center justify-center"><Lightbulb className="h-20 w-20 text-muted-foreground" /></Card>
+                    <BigCard
+                        title="Solar"
+                        caption="0wh"
+                        Icon={Sun}
+                        active={false}
+                        level={2}
+                    />
+                    <BigCard
+                        title="Load"
+                        caption="476.58wh"
+                        Icon={Lightbulb}
+                        active={true}
+                        level={2}
+                    />
                 </div>
             </div>
         </div>
