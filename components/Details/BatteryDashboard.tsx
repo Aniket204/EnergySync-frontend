@@ -3,24 +3,24 @@ import InfoCard from './InfoCard';
 import BigCard from './BigCard';
 import { PlugZap, Thermometer, Battery, UtilityPole, Sun, Lightbulb, Factory } from "lucide-react";
 
-const BatteryDashboard = () => {
+const BatteryDashboard = ({ data }) => {
     return (
         <div className="grid gap-4 p-4 pt-2 h-full">
             <div className="grid grid-cols-3 gap-4">
                 <InfoCard
-                    title="8°C"
+                    title={`${data.temperature.inverter} °C`}
                     caption="Inverter Temperature"
                     Icon={PlugZap}
                     bgColor="bg-indigo-200 dark:bg-indigo-950"
                 />
                 <InfoCard
-                    title="43°C"
+                    title={`${data.temperature.inverter} °C`}
                     caption="Battery Temperature"
                     Icon={Battery}
                     bgColor="bg-green-200 dark:bg-green-950"
                 />
                 <InfoCard
-                    title="29°C"
+                    title={`${data.temperature.inverter} °C`}
                     caption="Ambient Temperature"
                     Icon={Thermometer}
                     bgColor="bg-orange-200 dark:bg-orange-950"
@@ -31,23 +31,24 @@ const BatteryDashboard = () => {
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Generator"
-                        caption="476.58wh"
+                        caption={`${data.generator.apparentPowerTotal} Wh`}
                         Icon={Factory}
-                        active={true}
+                        active={data.generator.apparentPowerTotal > 0}
                         level={0}
                     />
                     <BigCard
                         title="Grid"
-                        caption="0wh"
+                        caption={`${data.grid.apparentPowerTotal} Wh`}
                         Icon={UtilityPole}
-                        active={false}
+                        active={data.grid.apparentPowerTotal > 0}
                         level={0}
                     />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Battery"
-                        caption="0% SOC"
+                        caption={`${data.battery.soc}% SOC`}
+                        extraCaption={`${data.battery.soh}% SOH`}
                         Icon={Battery}
                         active={true}
                         level={1}
@@ -63,9 +64,9 @@ const BatteryDashboard = () => {
                     />
                     <BigCard
                         title="Load"
-                        caption="476.58wh"
+                        caption={`${data.load.apparentPowerTotal} Wh`}
                         Icon={Lightbulb}
-                        active={true}
+                        active={data.load.apparentPowerTotal > 0}
                         level={2}
                     />
                 </div>
