@@ -3,30 +3,30 @@ import InfoCard from './InfoCard';
 import BigCard from './BigCard';
 import { AudioWaveform, Battery, UtilityPole, Sun, Lightbulb, Power, Factory, BatteryMedium, Zap } from "lucide-react";
 
-const BatteryStats = () => {
+const BatteryStats = ({ data }) => {
     return (
         <div className="grid gap-4 p-4 pt-2 h-full">
             <div className="grid grid-cols-4 gap-4">
                 <InfoCard
-                    title="22V"
+                    title={`${data.battery.voltage}V`}
                     caption="Voltage"
                     Icon={Zap}
                     bgColor="bg-indigo-200 dark:bg-indigo-950"
                 />
                 <InfoCard
-                    title="180A"
+                    title={`${data.battery.current}A`}
                     caption="Current"
                     Icon={AudioWaveform}
                     bgColor="bg-green-200 dark:bg-green-950"
                 />
                 <InfoCard
-                    title="220W"
+                    title={`${data.battery.voltage * data.battery.current} W`}
                     caption="Power"
                     Icon={Power}
                     bgColor="bg-purple-200 dark:bg-purple-950"
                 />
                 <InfoCard
-                    title="34%"
+                    title={`${data.battery.soc}%`}
                     caption="State of charge"
                     Icon={BatteryMedium}
                     bgColor="bg-orange-200 dark:bg-orange-950"
@@ -37,23 +37,24 @@ const BatteryStats = () => {
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Generator"
-                        caption="476.58wh"
+                        caption={`${data.generator.activePowerTotal} Wh`}
                         Icon={Factory}
-                        active={true}
+                        active={data.generator.activePowerTotal > 0}
                         level={0}
                     />
                     <BigCard
                         title="Grid"
-                        caption="0wh"
+                        caption={`${data.grid.activePowerTotal} Wh`}
                         Icon={UtilityPole}
-                        active={false}
+                        active={data.grid.activePowerTotal > 0}
                         level={0}
                     />
                 </div>
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Battery"
-                        caption="0% SOC"
+                        caption={`${data.battery.soc}% SOC`}
+                        extraCaption={`${data.battery.soh}% SOH`}
                         Icon={Battery}
                         active={true}
                         level={1}
@@ -69,9 +70,9 @@ const BatteryStats = () => {
                     />
                     <BigCard
                         title="Load"
-                        caption="476.58wh"
+                        caption={`${data.load.activePowerTotal} Wh`}
                         Icon={Lightbulb}
-                        active={true}
+                        active={data.load.activePowerTotal > 0}
                         level={2}
                     />
                 </div>

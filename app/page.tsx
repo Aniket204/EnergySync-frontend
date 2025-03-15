@@ -10,6 +10,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Dashboard from "@/components/Dashboard/Dashboard";
 import UnitList from "@/components/Dashboard/UnitList";
+import { Toaster } from "sonner";
 
 export default function Page() {
   const { theme, setTheme } = useTheme();
@@ -25,6 +26,7 @@ export default function Page() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
+      <Toaster position="bottom-right" />
         <Tabs defaultValue="dashboard">
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4 w-full justify-between">
