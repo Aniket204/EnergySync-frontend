@@ -46,7 +46,7 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="secondary" className='cursor-pointer' size="icon" >
+                                <Button variant="secondary" disabled className='cursor-pointer' size="icon" >
                                     <Pencil />
                                 </Button>
                             </TooltipTrigger>
