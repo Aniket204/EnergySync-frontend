@@ -1,7 +1,7 @@
 import React from 'react';
 import InfoCard from './InfoCard';
 import BigCard from './BigCard';
-import { AudioWaveform, Battery, UtilityPole, Sun, Lightbulb, Power, Factory, BatteryMedium, Zap } from "lucide-react";
+import { AudioWaveform, Battery, UtilityPole, Sun, Lightbulb, Power, Activity, BatteryMedium, Zap } from "lucide-react";
 
 const BatteryStats = ({ data }) => {
     return (
@@ -20,7 +20,7 @@ const BatteryStats = ({ data }) => {
                     bgColor="bg-green-200 dark:bg-green-950"
                 />
                 <InfoCard
-                    title={`${data.battery.voltage * data.battery.current} W`}
+                    title={`${data.battery.voltage * data.battery.current}W`}
                     caption="Power"
                     Icon={Power}
                     bgColor="bg-purple-200 dark:bg-purple-950"
@@ -38,7 +38,7 @@ const BatteryStats = ({ data }) => {
                     <BigCard
                         title="Generator"
                         caption={`${data.generator.activePowerTotal} Wh`}
-                        Icon={Factory}
+                        Icon={Activity}
                         active={data.generator.activePowerTotal > 0}
                         level={0}
                     />
@@ -63,7 +63,7 @@ const BatteryStats = ({ data }) => {
                 <div className="flex flex-col gap-4 h-full">
                     <BigCard
                         title="Solar"
-                        caption="0wh"
+                        caption="0 wh"
                         Icon={Sun}
                         active={false}
                         level={2}

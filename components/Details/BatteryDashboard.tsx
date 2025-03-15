@@ -1,26 +1,26 @@
 import React from 'react';
 import InfoCard from './InfoCard';
 import BigCard from './BigCard';
-import { PlugZap, Thermometer, Battery, UtilityPole, Sun, Lightbulb, Factory } from "lucide-react";
+import { PlugZap, Thermometer, Battery, UtilityPole, Sun, Activity, Lightbulb, Factory } from "lucide-react";
 
 const BatteryDashboard = ({ data }) => {
     return (
         <div className="grid gap-4 p-4 pt-2 h-full">
             <div className="grid grid-cols-3 gap-4">
                 <InfoCard
-                    title={`${data.temperature.inverter} °C`}
+                    title={`${data.temperature.inverter}°C`}
                     caption="Inverter Temperature"
                     Icon={PlugZap}
                     bgColor="bg-indigo-200 dark:bg-indigo-950"
                 />
                 <InfoCard
-                    title={`${data.temperature.inverter} °C`}
+                    title={`${data.temperature.inverter}°C`}
                     caption="Battery Temperature"
                     Icon={Battery}
                     bgColor="bg-green-200 dark:bg-green-950"
                 />
                 <InfoCard
-                    title={`${data.temperature.inverter} °C`}
+                    title={`${data.temperature.inverter}°C`}
                     caption="Ambient Temperature"
                     Icon={Thermometer}
                     bgColor="bg-orange-200 dark:bg-orange-950"
@@ -32,7 +32,7 @@ const BatteryDashboard = ({ data }) => {
                     <BigCard
                         title="Generator"
                         caption={`${data.generator.apparentPowerTotal} Wh`}
-                        Icon={Factory}
+                        Icon={Activity}
                         active={data.generator.apparentPowerTotal > 0}
                         level={0}
                     />
