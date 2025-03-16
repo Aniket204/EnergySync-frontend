@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
-import { ArrowLeft, Pencil, Trash, RotateCcw, Loader } from "lucide-react";
+import { ArrowLeft, Pencil, Trash, RotateCcw, Loader, AlertCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BatteryDashboard from './BatteryDashboard';
 import BatteryStats from './BatteryStats';
@@ -23,23 +23,47 @@ const formatTimestamp = (timestamp: string) => {
 const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [deviceStatus, setDeviceStatus] = useState(null);
+    const [deviceStatus, setDeviceStatus] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
     const [refresh, setRefresh] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/device/status/12345ABCDE")
-            .then(response => response.json())
-            .then(data => {
+        const fetchDeviceStatus = async () => {
+            try {
+                setLoading(true);
+                setError(null); 
+                const response = await fetch("http://localhost:8080/api/device/status/12345ABCDE");
+
+                if (!response.ok) {
+                    throw new Error(`Server responded with status ${response.status}`);
+                }
+
+                const data = await response.json();
                 setDeviceStatus(data);
+            } catch (err) {
+                setError("Failed to fetch device status. Please check your connection.");
+                console.error("Error fetching device status:", err);
+            } finally {
                 setLoading(false);
-                console.log(data);
-            })
-            .catch(error => {
-                console.error("Error fetching device status:", error);
-                setLoading(false);
-            });
+            }
+        };
+
+        fetchDeviceStatus();
     }, [refresh]);
+
+    const handleRefresh = () => {
+        setIsRefreshing(true);
+        setTimeout(() => setIsRefreshing(false), 500);
+        setRefresh(prev => !prev);
+        toast("Status reloaded successfully", {
+            description: deviceStatus?.serialNo ? `Serial Number: ${deviceStatus.serialNo}` : "No data available",
+            action: {
+                label: "OK",
+                onClick: () => console.log("Undo"),
+            },
+        });
+    };
 
     if (loading) {
         return (
@@ -49,18 +73,15 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
         );
     }
 
-    const handleRefresh = () => {
-        setIsRefreshing(true);
-        setTimeout(() => setIsRefreshing(false), 500);
-        setRefresh(prev => !prev);
-        toast("Status reloaded successfully", {
-            description: `Serial Number: ${deviceStatus.serialNo}`,
-            action: {
-                label: "OK",
-                onClick: () => console.log("Undo"),
-            },
-        });
-    };
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen pb-16">
+                <AlertCircle className="h-10 w-10 text-red-500" />
+                <p className="text-red-500 mt-2">{error}</p>
+                <Button onClick={handleRefresh} variant="secondary" className="mt-4">Retry</Button>
+            </div>
+        );
+    }
 
     return (
         <div className="flex -mt-2 group-has-[[data-collapsible=icon]]/sidebar-wrapper:mt-0 justify-center items-center h-142 px-4 w-full">
@@ -75,7 +96,6 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                 </Button>
 
                 <div className="absolute right-8 flex space-x-2">
-
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -121,7 +141,7 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                         <DialogHeader>
                             <DialogTitle>Confirm Deletion</DialogTitle>
                             <DialogDescription>
-                                Are you sure you want to delete <strong>{deviceStatus.name}</strong>? This action cannot be undone.
+                                Are you sure you want to delete <strong>{deviceStatus?.name || "this powerbank"}</strong>? This action cannot be undone.
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
@@ -142,21 +162,21 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
 
                     <Card className="shadow-sm mx-4 p-4 hover:bg-muted rounded-sm">
                         <CardContent className="flex p-0 justify-between w-full">
-                            <div><span className="font-light">Name: </span><span className="font-semibold">{deviceStatus.name}</span>
-                                <Badge className="ml-2" variant={deviceStatus.data.ess.powerState == 1 ? "default" : "secondary"}>
-                                    {deviceStatus.data.ess.powerState == 1 ? "ON" : "OFF"}
+                            <div><span className="font-light">Name: </span><span className="font-semibold">{deviceStatus?.name || "N/A"}</span>
+                                <Badge className="ml-2" variant={deviceStatus?.data?.ess?.powerState === 1 ? "default" : "secondary"}>
+                                    {deviceStatus?.data?.ess?.powerState === 1 ? "ON" : "OFF"}
                                 </Badge>
                             </div>
-                            <div><span className="font-light">Serial Number: </span><span className="font-semibold">{deviceStatus.serialNo}</span></div>
-                            <div><span className="font-light">Time: </span><span className="font-semibold">{formatTimestamp(deviceStatus.timestamp)}</span></div>
+                            <div><span className="font-light">Serial Number: </span><span className="font-semibold">{deviceStatus?.serialNo || "N/A"}</span></div>
+                            <div><span className="font-light">Time: </span><span className="font-semibold">{deviceStatus?.timestamp ? formatTimestamp(deviceStatus.timestamp) : "N/A"}</span></div>
                         </CardContent>
                     </Card>
 
                     <TabsContent className="m-0" value="dashboard">
-                        <BatteryDashboard data={deviceStatus.data} />
+                        <BatteryDashboard data={deviceStatus?.data} />
                     </TabsContent>
                     <TabsContent value="battery">
-                        <BatteryStats data={deviceStatus.data} />
+                        <BatteryStats data={deviceStatus?.data} />
                     </TabsContent>
                 </Tabs>
             </Card>

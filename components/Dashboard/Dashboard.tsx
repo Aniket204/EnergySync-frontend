@@ -5,7 +5,7 @@ import { DollarSign, Fuel, CirclePlay, Wind } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
-const tags = Array.from({ length: 50 }).map(
+const tags = Array.from({ length: 9 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
 );
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
                 <div className="md:col-span-2 lg:col-span-1">
                     <ScrollArea className="w-full md:h-[366px] rounded-sm shadow-sm border">
                         <div className="p-4">
-                            <h4 className="mb-4 text-sm font-medium leading-none">Data Activity</h4>
+                            <h4 className="mb-4 text-sm font-semibold leading-none">Data Activity</h4>
                             {tags.map((tag) => (
                                 <>
                                     <div key={tag} className="text-sm">

@@ -31,7 +31,7 @@ const BigCard = ({ title, caption, extraCaption, Icon, active, level }: BigCardP
 
         <h3 className="text-lg font-semibold text-muted-foreground">{title}</h3>
         <p className="text-md font-medium text-muted-foreground mt-1">{caption}</p>
-        {extraCaption && <p className="text-sm mt-1 text-muted-foreground">{extraCaption}</p>}
+        {extraCaption && <p className="text-md font-medium mt-1 text-muted-foreground">{extraCaption}</p>}
       </div>
     </Card>
   );
