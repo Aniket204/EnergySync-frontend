@@ -22,7 +22,7 @@ interface Unit {
   soc: number;
 }
 
-const data: Unit[] = Array.from({ length: 50 }, (_, i) => ({
+const data: Unit[] = Array.from({ length: 20 }, (_, i) => ({
   id: `PB-${String(i + 1).padStart(3, "0")}`,
   powerbankName: `Powerbank ${i + 1}`,
   companyName: `Company ${i + 1}`,

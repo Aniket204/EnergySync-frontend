@@ -27,9 +27,9 @@ const BigCard = ({ title, caption, extraCaption, Icon, active, level }: BigCardP
       )}  
 
       <div className="relative z-10 flex flex-col items-center">
-        <Icon className={`mb-2 text-muted-foreground ${extraCaption ? 'h-20 w-20' : 'h-12 w-12'}`} />
+        <Icon className={`mb-2 text-muted-foreground ${extraCaption ? 'h-20 w-20' : 'h-9 w-9'}`} />
 
-        <h3 className="text-lg font-semibold text-muted-foreground">{title}</h3>
+        <h3 className="text-md font-semibold text-muted-foreground">{title}</h3>
         <p className="text-md font-medium text-muted-foreground mt-1">{caption}</p>
         {extraCaption && <p className="text-md font-medium mt-1 text-muted-foreground">{extraCaption}</p>}
       </div>

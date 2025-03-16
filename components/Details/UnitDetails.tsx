@@ -95,7 +95,7 @@ const UnitDetails = ({ selectedUnit, handleBack }: UnitDetailsProps) => {
                     <ArrowLeft />
                 </Button>
 
-                <div className="absolute right-8 flex space-x-2">
+                <div className="absolute right-10 flex space-x-2">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>

@@ -1,6 +1,5 @@
 "use client";
 
-// This file should be saved as app/layout-wrapper.tsx
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
@@ -15,11 +14,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   
-  // Get the current page title based on the route
   const getPageTitle = () => {
     if (pathname === "/dashboard") return "Dashboard";
     if (pathname === "/units") return "Unit List";
-    return "Dashboard"; // Default title
+    return "Dashboard"; 
   };
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Button>
           </div>
         </header>
-        <main className="p-4">
+        <main className="p-2">
           {children}
         </main>
       </SidebarInset>
