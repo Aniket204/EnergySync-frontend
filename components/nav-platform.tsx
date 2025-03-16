@@ -2,6 +2,7 @@
 
 import { type LucideIcon } from "lucide-react";
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 type MenuItem = {
   name: string
@@ -11,7 +12,6 @@ type MenuItem = {
 }
 
 export function NavPlatform({ menuItems }: { menuItems: MenuItem[] }) {
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -19,7 +19,7 @@ export function NavPlatform({ menuItems }: { menuItems: MenuItem[] }) {
         {menuItems.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a
+              <Link
                 href={item.url}
                 className={
                   item.isActive
@@ -29,7 +29,7 @@ export function NavPlatform({ menuItems }: { menuItems: MenuItem[] }) {
               >
                 <item.icon />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
