@@ -6,37 +6,40 @@ import { NavPlatform } from "@/components/nav-platform"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
-
-const data = {
-  user: {
-    name: "satyam",
-    email: "satyam@powr2.com",
-    icon: CircleUser,
-  },
-  teams: [
-    {
-      name: "POWR2",
-      logo: Command,
-      plan: "EnergySync",
-    },
-  ],
-  menuItems: [
-    {
-      name: "Dashboard",
-      url: "#",
-      icon: LayoutDashboard,
-      isActive: true,
-    },
-    {
-      name: "Unit List",
-      url: "#",
-      icon: List,
-      isActive: false,
-    }
-  ],
-}
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  
+  const data = {
+    user: {
+      name: "satyam",
+      email: "satyam@powr2.com",
+      icon: CircleUser,
+    },
+    teams: [
+      {
+        name: "POWR2",
+        logo: Command,
+        plan: "EnergySync",
+      },
+    ],
+    menuItems: [
+      {
+        name: "Dashboard",
+        url: "/dashboard",
+        icon: LayoutDashboard,
+        isActive: pathname === "/dashboard",
+      },
+      {
+        name: "Unit List",
+        url: "/units",
+        icon: List,
+        isActive: pathname === "/units",
+      }
+    ],
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
