@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/components/ui/table";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { BatteryFull, BatteryCharging } from "lucide-react";
+import { BatteryFull, BatteryCharging, Loader, List, Book } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Loader } from "lucide-react";
 import UnitDetails from "../Details/UnitDetails";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import CardList from "./CardList";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 
 interface Unit {
   id: string;
@@ -27,17 +28,17 @@ const data: Unit[] = Array.from({ length: 20 }, (_, i) => ({
   powerbankName: `Powerbank ${i + 1}`,
   companyName: `Company ${i + 1}`,
   address: `Street ${i + 1}, City, Country`,
-  currentStatus: Math.random() > 0.5 ? ("charging" as const) : ("full" as const),
+  currentStatus: Math.random() > 0.5 ? "charging" : "full",
   verified: Math.random() > 0.5,
   connected: Math.random() > 0.5 ? "Yes" : "No",
   soc: Math.floor(Math.random() * 91) + 10,
 }));
 
-
 const UnitList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
+  const [viewMode, setViewMode] = useState<"list" | "cards">("cards");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -80,7 +81,21 @@ const UnitList = () => {
   }
 
   return (
-    <div className="px-5">
+<div className="relative">
+  <div className="absolute right-16 -top-14 group-has-[[data-collapsible=icon]]/sidebar-wrapper:-top-12 z-50">
+    <ToggleGroup
+      type="single"
+      value={viewMode}
+      onValueChange={setViewMode}
+      className="flex border"
+    >
+      <ToggleGroupItem value="list"><List /></ToggleGroupItem>
+      <ToggleGroupItem value="cards"><Book /></ToggleGroupItem>
+    </ToggleGroup>
+  </div>
+
+  <div className="px-5">
+    {viewMode === "list" ? (
       <Table className="w-full">
         <TableHeader>
           <TableRow>
@@ -98,19 +113,18 @@ const UnitList = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                  <TableCell
-                className="font-medium cursor-pointer hover:underline"
-                onClick={() => handleUnitClick(item)}
-              >
-                {item.powerbankName}
-              </TableCell>
+                    <TableCell
+                      className="font-medium cursor-pointer hover:underline"
+                      onClick={() => handleUnitClick(item)}
+                    >
+                      {item.powerbankName}
+                    </TableCell>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
                     <p>View {item.powerbankName} details</p>
                   </TooltipContent>
                 </Tooltip>
-                    </TooltipProvider>
-
+              </TooltipProvider>
               <TableCell>{item.companyName}</TableCell>
               <TableCell>{item.address}</TableCell>
               <TableCell>
@@ -132,41 +146,42 @@ const UnitList = () => {
           ))}
         </TableBody>
       </Table>
+    ) : (
+      <CardList data={paginatedData} onCardClick={handleUnitClick} />
+    )}
 
-      <Pagination className="mt-5">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href="#"
-              onClick={currentPage === 1 ? undefined : () => handlePageChange(currentPage - 1)}
-              aria-disabled={currentPage === 1}
-              className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-            />
+    <Pagination className="mt-5 mb-2">
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            href="#"
+            onClick={currentPage === 1 ? undefined : () => handlePageChange(currentPage - 1)}
+            aria-disabled={currentPage === 1}
+            className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+          />
+        </PaginationItem>
+
+        {Array.from({ length: totalPages }, (_, i) => (
+          <PaginationItem key={i}>
+            <PaginationLink href="#" onClick={() => handlePageChange(i + 1)} isActive={i + 1 === currentPage}>
+              {i + 1}
+            </PaginationLink>
           </PaginationItem>
+        ))}
 
-          {Array.from({ length: totalPages }, (_, i) => (
-            <PaginationItem key={i}>
-              <PaginationLink
-                href="#"
-                onClick={() => handlePageChange(i + 1)}
-                isActive={i + 1 === currentPage}
-              >
-                {i + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+        <PaginationItem>
+          <PaginationNext
+            href="#"
+            onClick={currentPage === totalPages ? undefined : () => handlePageChange(currentPage + 1)}
+            aria-disabled={currentPage === totalPages}
+            className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  </div>
+</div>
 
-          <PaginationItem>
-            <PaginationNext
-              href="#"
-              onClick={currentPage === totalPages ? undefined : () => handlePageChange(currentPage + 1)}
-              aria-disabled={currentPage === totalPages}
-              className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
   );
 };
 
